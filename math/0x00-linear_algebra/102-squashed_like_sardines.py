@@ -1,40 +1,37 @@
 #!/usr/bin/env python3
+
 """
-Module that concatenates two matrices
+Module for cat_matrices.
 """
+
+
+def get_length(rows):
+    """Recursive function returns list with length."""
+    if rows and (type(rows) is list or type(rows) is tuple):
+        return [len(rows), *get_length(rows[0])]
+    return []
 
 
 def matrix_shape(matrix):
-    """
-    Needs a matrix as input
-    Returns the shape as a list of integers
-    """
-    if type(matrix[0]) is not list:
-        return [len(matrix)]
-    else:
-        return [len(matrix)] + matrix_shape(matrix[0])
+    """Calculates the shape of a matrix."""
+    return [*get_length(matrix)]
 
 
-def concat_recursive(mat1, mat2, axe):
-    """
-    Needs a matrix as input
-    Returns a concatenated matrix
-    """
-    result = []
-    if axe == 0:
-        result = mat1 + mat2
-        return result
-    for i in range(len(mat1)):
-        result.append(concat_recursive(mat1[i], mat2[i], axe - 1))
-    return result
+def concatenate_rows(row1, row2, axis):
+    """Concatenates rows."""
+    if axis == 0:
+        return row1 + row2
+
+    range_row = range(len(row1))
+    return [concatenate_rows(row1[i], row2[i], axis - 1) for i in range_row]
 
 
 def cat_matrices(mat1, mat2, axis=0):
-    """
-    Needs a matrix as input
-    Returns the resulting matrix
-    """
-    if len(matrix_shape(mat1)) > axis and len(matrix_shape(mat2)) > axis:
-        return concat_recursive(mat1, mat2, axis)
-    else:
+    """ Concatenates two matrices along a specific axis."""
+    shape_matrix1 = matrix_shape(mat1)
+    shape_matrix2 = matrix_shape(mat2)
+
+    if shape_matrix1[axis + 1:] != shape_matrix2[axis + 1:]:
         return None
+
+    return concatenate_rows(mat1, mat2, axis)
