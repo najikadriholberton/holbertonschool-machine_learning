@@ -1,12 +1,14 @@
-#!/usr/bin/python3
-"""Size Me Please"""
+#!/usr/bin/env python3
+
+"""
+Module for matrix_shape.
+"""
 
 
 def matrix_shape(matrix):
-    """Matrix Shape function"""
-    dimensions = []
-    current_depth = matrix
-    while type(current_depth) is list:
-        dimensions.append(len(current_depth))
-        current_depth = current_depth[0]
-    return dimensions
+    """Finds the shape of matrix."""
+    dims = [len(matrix)]
+    while type(matrix[0]) != int:
+        dims.append(len(matrix[0]))
+        matrix = matrix[0]
+    return dims
