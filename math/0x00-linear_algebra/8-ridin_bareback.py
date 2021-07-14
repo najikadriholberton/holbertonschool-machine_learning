@@ -1,27 +1,15 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 """
-Module for Ridin' Bareback
+Module for mat_mul.
 """
 
 
 def mat_mul(mat1, mat2):
-    """Matrix Multiplication"""
-    n = len(mat1)
-    m1 = len(mat1[0])
-    m2 = len(mat2)
-    k = len(mat2[0])
-
-    if m1 != m2:
+    """Multiply 2 arrays."""
+    if len(mat1[0]) != len(mat2):
         return None
-
-    mat = []
-
-    for i in range(n):
-        mat.append([])
-        for j in range(k):
-            total_val = 0
-            for l in range(m1):
-                total_val += mat1[i][l] * mat2[l][j]
-            mat[i].append(total_val)
-    return mat
+    new_mat = [[sum(a * b for a, b in zip(mat1_row, mat2_col))
+                for mat2_col in zip(*mat2)]
+               for mat1_row in mat1]
+    return new_mat
