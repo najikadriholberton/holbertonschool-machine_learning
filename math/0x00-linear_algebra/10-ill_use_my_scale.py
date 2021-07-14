@@ -1,10 +1,11 @@
-#!/usr/bin/python3
+  
+#!/usr/bin/env python3
 
 """
-Module I'll Use My Scale
+Module for np_shape.
 """
 
 
 def np_shape(matrix):
-    """Get numpy matrix shape"""
+    """Shape np array."""
     return matrix.shape
